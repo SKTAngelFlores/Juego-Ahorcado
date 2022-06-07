@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del Ahorcado</title>
+    <style type="text/css">
+        *{
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+        section{
+            width: 100%;
+            height: 100vh;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        input[type="text"]{
+            width: 100%;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0 10px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        input[type="button"]{
+            width: 100%;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0 10px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        div{
+            width: 100%;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0 10px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        footer{
+            width: 100%;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0 10px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+        <input type="text" id="letra" placeholder="Esciba una letra">
+        <input type="button" id="boton" value="Comprobar"> <br>
+        <div id="frase"> </div>
+        <div id="vida">
+            El numero de vidas es: 4
+
+        </div>
+    </section>
+    <script type="text/javascript">
+        let palabras = Array("tesla","mazda","bmw","subaru","porsche","lexus","volvo","mercedesbenz");
+        let palabra=""; //Palaabra oculta
+        let palabraOc=""; //Palabra oculta que va a adivinar el usuario
+        let palabraAdi=""; //Palabra adivinada
+        let vidas = 4;
+        document.getElementById("boton").addEventListener("click",comprobar); //Evento del boton
+
+        iniciar();
+
+        function iniciar() { //Iniciar el juego
+            PalabraOc=palabras[Math.floor(Math.random()*palabras.length)]; //Generar una palabra aleatoria
+            for(let i=0; i<PalabraOc.length;i++){ //Generar la palabra oculta
+                palabraAdi=palabraAdi+"_ "; //Generar la palabra oculta
+            }
+            document.getElementById("frase").innerHTML=palabraAdi; //Mostrar la palabra oculta
+        }
+
+        function comprobar() { //Comprobar la letra
+            let letra = document.getElementById("letra").value.toLowerCase(); //Obtener la letra 
+            let nuevo = ""; //Nueva palabra oculta
+            for(let i=0; i<PalabraOc.length;i++){ //Recorrer la palabra oculta
+                if(letra==PalabraOc[i]){ //Si la letra es igual a la palabra oculta
+                    nuevo=nuevo+letra+" "; //Agregar la letra a la palabra oculta
+                   nuevo = nuevo + letra + " "; //Agregar la letra a la palabra oculta
+                }else{ //Si no es igual
+                    nuevo = nuevo + palabraAdi[i*2] + " "; //Agregar la letra a la palabra oculta
+                }
+            }
+            if(nuevo==palabraAdi){ //Si la palabra oculta es igual a la palabra oculta
+                vidas--; //Restar una vida
+                document.getElementById("vida").innerHTML="El numero de vidas es: "+vidas; //Mostrar el numero de vidas
+            }
+            palabraAdi = nuevo; //Asignar la palabra oculta
+            document.getElementById("frase").innerHTML=palabraAdi; //Mostrar la palabra oculta
+
+            if(vidas==0){ //Si el numero de vidas es 0
+                    alert("Perdiste :("); //Mostrar mensaje de perdio
+                    document.getElementById("frase").innerHTML="La palabra era: "+PalabraOc; //Mostrar la palabra oculta
+            }
+            if(palabraAdi.search("_")==-1){ //Si la palabra oculta no tiene "_"
+                alert("Ganaste :)"); //Mostrar mensaje de ganaste
+            }
+            document.getElementById("letra").value=""; //Limpiar el input
+            document.getElementById("letra").focus(); //Poner el foco en el input
+        }
+        
+    </script>
+
+    <footer> 
+        <p> PRACTICA: AHORCADO 
+            DESARROLLADO POR: LUIS ANGEL FLORES CENTENO SAUL NICOLAS AGUILAR PALMA FERNANDO ANTONIO DURAN RAMOS</p>
+                
+            
+</body>
+
+</html>
